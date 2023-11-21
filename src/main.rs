@@ -3,12 +3,10 @@ use std::process;
 
 use minigrep::Config;
 fn main() {
-    //收集命令行输入参数
-    let args:Vec<String> = env::args().collect();
     //unwrap_or_else 是定义在 Result<T,E> 上的常用方法，
     //如果 Result 是 Ok，那该方法就类似 unwrap：返回 Ok 内部的值；
     //如果是 Err，就调用闭包中的自定义代码对错误进行进一步处理
-    let config = Config::build(&args).unwrap_or_else(|err| {
+    let config = Config::build(env::args()).unwrap_or_else(|err| {
         //迄今为止，所有的输出信息，无论 debug 还是 error 类型，都是通过 println! 宏输出到终端的标准输出( stdout )，但是对于程序来说，错误信息更适合输出到标准错误输出(stderr)。
         //这样修改后，用户就可以选择将普通的日志类信息输出到日志文件 1，然后将错误信息输出到日志文件 2，甚至还可以输出到终端命令行。
 
